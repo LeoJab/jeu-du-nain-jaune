@@ -63,7 +63,10 @@ input,select{
 .menu-box{width:100%;display:flex;flex-direction:column;gap:12px}
 .menu-box .btn{width:100%;font-size:18px;padding:14px}
 .row{display:flex;gap:10px;align-items:center}
-.row > input{flex:1}
+.row > input{flex:1;min-width:0;width:100%}
+.menu-box .row .btn{width:auto;flex:none;padding:14px 18px}
+#code{font-size:22px;letter-spacing:.3em;text-align:center;padding:10px 6px}
+#code::placeholder{letter-spacing:normal;font-size:16px}
 .hint{color:#fff;font-size:13px;text-align:center;font-weight:700;opacity:.85;max-width:36ch}
 .menu-foot{display:flex;gap:10px;justify-content:center}
 
@@ -300,11 +303,48 @@ input,select{
   .opp .av{width:44px;height:44px}
   .opp .nm{font-size:14px;max-width:120px}
 }
+@media (max-width:719px){
+  .need span{display:none}
+  .talon{top:auto;bottom:5px;right:10px;font-size:10px}
+  .tapis{height:calc(var(--ch) + 78px);padding-bottom:10px}
+}
 @media (max-height:640px) and (max-width:719px){
   :root{--cw:clamp(38px,11vw,58px)}
   .case .lbl,.stack{display:none}
   .tapis{height:calc(var(--ch) + 40px)}
 }
+/* aide & pédagogie */
+.card.ghost{background:rgba(255,255,255,.12);border:3px dashed #fff;color:#fff;box-shadow:none;margin-left:10px!important;display:flex;flex-direction:column;align-items:center;justify-content:center;animation:ghost 1.4s ease-in-out infinite}
+.card.ghost b{font-weight:400;font-size:calc(var(--cw)*.5);line-height:1}
+.card.ghost small{font-family:'Nunito',sans-serif;font-weight:900;font-size:calc(var(--cw)*.17);margin-top:3px;opacity:.9}
+.card.ghost.free b{font-size:calc(var(--cw)*.42)}
+@keyframes ghost{0%,100%{opacity:.6;transform:scale(.96)}50%{opacity:1;transform:scale(1.03)}}
+.need span{opacity:.75;font-weight:700}
+.status{display:flex;flex-direction:column;align-items:center;gap:5px}
+.status .say{color:#fff;font-size:13px;font-weight:800;line-height:1.25;max-width:520px;text-shadow:1px 1px 0 var(--encre);min-height:16px}
+.case.hot{animation:hot 1s ease-in-out infinite;box-shadow:0 0 0 4px var(--jaune)}
+@keyframes hot{0%,100%{box-shadow:0 0 0 3px var(--jaune)}50%{box-shadow:0 0 0 7px var(--jaune)}}
+.case{cursor:help}
+.card .gain{position:absolute;top:-9px;right:-6px;background:var(--jaune);border:2px solid var(--encre);border-radius:99px;font-family:'Nunito',sans-serif;font-weight:900;font-size:11px;padding:1px 5px;color:var(--encre);z-index:2;white-space:nowrap}
+.card .tipb{position:absolute;top:-12px;left:50%;transform:translateX(-50%);font-size:18px;z-index:2;animation:bob 1.2s ease-in-out infinite}
+.hand .card.tip{box-shadow:3px 3px 0 var(--encre),0 0 0 4px var(--vert)!important}
+.opps .opp:not(:last-child)::after{content:'›';position:absolute;right:-11px;top:50%;transform:translateY(-50%);color:#fff;font-family:var(--fd);font-size:20px;text-shadow:1px 1px 0 var(--encre)}
+.opps{gap:7px 14px}
+#coach{position:fixed;left:50%;bottom:calc(var(--ch) + 76px);transform:translate(-50%,30px);width:min(440px,calc(100% - 20px));z-index:87;display:flex;gap:10px;align-items:flex-start;
+  background:#fff;border:3px solid var(--encre);border-radius:18px;box-shadow:6px 6px 0 var(--encre);padding:12px;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s}
+#coach.on{opacity:1;transform:translate(-50%,0);pointer-events:auto}
+#coach .dwarf{width:46px;height:54px;flex:none}
+#coach b{font-family:var(--fd);font-weight:400;font-size:19px;display:block;margin-bottom:2px}
+#coach p{margin:0 0 8px;font-size:14px;font-weight:700;line-height:1.4}
+#coach .row{justify-content:flex-end;gap:8px}
+.tuto-ill{--cw:46px;display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap;background:var(--bleu);border:3px solid var(--encre);border-radius:16px;padding:16px 10px;margin:10px 0;min-height:110px;color:#fff;font-weight:900}
+.tuto-ill .arrow{font-family:var(--fd);font-size:26px;color:var(--jaune);-webkit-text-stroke:1px var(--encre)}
+.tuto-ill .chip{background:#fff;color:var(--encre);border:2px solid var(--encre);border-radius:10px;padding:4px 8px;font-size:13px}
+.tuto-ill .card.ghost{margin-left:0!important}
+.dots{display:flex;gap:6px;justify-content:center;margin-top:10px}
+.dots i{width:10px;height:10px;border-radius:50%;border:2px solid var(--encre);background:#fff}
+.dots i.on{background:var(--jaune)}
+.rtab small{font-weight:700;opacity:.7}
 @media (prefers-reduced-motion:reduce){
   *{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
 }
@@ -324,7 +364,8 @@ input,select{
       </div>
       <div class="panel menu-box" id="menuBox"></div>
       <div class="menu-foot">
-        <button class="btn w sm" id="btnRules">📜 Les règles</button>
+        <button class="btn w sm" id="btnTuto">❓ Comment jouer</button>
+        <button class="btn w sm" id="btnRules">📜 Règles</button>
         <button class="btn w sm" id="btnSnd1">🔊 Son</button>
       </div>
     </div>
@@ -372,6 +413,7 @@ input,select{
 <div id="modal"><div class="panel" id="modalBody"></div></div>
 <aside id="log"><div class="lh"><h3>Historique</h3><button class="btn w ico" id="logClose" aria-label="Fermer">✕</button></div><ol id="logList"></ol></aside>
 <div id="toast"></div>
+<div id="coach" role="status"></div>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
@@ -661,6 +703,7 @@ function present(p) { return mode !== 'online' || p.bot || roomPlayers.some(r =>
 function hostTick() {
   clearTimeout(hostTimer);
   if (!S) return;
+  if (coachOn && mode !== 'online') return;
   const v = S.v;
   if (!amHost()) {
     // relais : si l'hôte dort (onglet en arrière-plan), un autre joueur fait jouer les bots.
@@ -676,7 +719,7 @@ function hostTick() {
     if (!pl.length) { hostTimer = setTimeout(() => { if (S.v === v) mutate(s => doPass(s)); }, 620); return; }
     const absent = !present(p);
     if (p.bot || absent) {
-      hostTimer = setTimeout(() => { if (S.v !== v) return; const c = botPick(S, i); mutate(s => doPlay(s, i, c)); }, p.bot ? 620 + Math.random() * 480 : 12000);
+      hostTimer = setTimeout(() => { if (S.v !== v) return; const c = botPick(S, i); mutate(s => doPlay(s, i, c)); }, p.bot ? 1000 + Math.random() * 600 : 12000);
     } else if (mode === 'online') {
       // joueur présent mais endormi : un bot joue pour lui au bout de 45 s
       hostTimer = setTimeout(() => { if (S.v !== v) return; const c = botPick(S, i); mutate(s => { logp(s, `😴 ${p.name} dort… le bot a joué pour lui.`); return doPlay(s, i, c); }); }, 45000);
@@ -727,6 +770,7 @@ function applyState(s, silent) {
   newEv.forEach(e => { if (e.k === 'play') origins[e.n] = originRect(prev, e.p, e.c); });
   render();
   runEvents(newEv, origins, prev);
+  if (prev) checkCoach(newEv);
   if (prev && s.phase === 'play' && !veiled && s.turn === myIdx() && (prev.turn !== s.turn || prev.phase !== 'play') && playableOf(s, s.turn).length) {
     setTimeout(() => { SND.turn(); if (navigator.vibrate) try { navigator.vibrate(60); } catch (e) {} }, 350);
   }
@@ -764,7 +808,7 @@ function cardHTML(c, cls = '') {
 }
 function render() {
   if (!mode) { show('scr-menu'); renderMenu(); return; }
-  if (mode === 'online' && (!S || S.phase === 'lobby')) { closeModal(); show('scr-lobby'); renderLobby(); return; }
+  if (mode === 'online' && (!S || S.phase === 'lobby')) { if (modalKind === 'phase') closeModal(); show('scr-lobby'); renderLobby(); return; }
   if (!S) { show('scr-menu'); return; }
   show('scr-game'); renderGame();
 }
@@ -777,7 +821,7 @@ function renderMenu() {
   let h = '';
   if (SDK) {
     h += `<button class="btn" id="mCreate">🎉 Créer une partie en ligne</button>
-      <div class="row"><input id="code" maxlength="12" placeholder="Code (ex. NAIN)" autocomplete="off" value="${esc(inv || LS.get('lastRoom', ''))}" style="text-transform:uppercase"><button class="btn w" id="mJoin">Rejoindre</button></div>
+      <div class="row"><input id="code" maxlength="12" inputmode="numeric" placeholder="Code à 4 chiffres" autocomplete="off" aria-label="Code de la partie" value="${esc(inv || LS.get('lastRoom', ''))}" style="text-transform:uppercase"><button class="btn w" id="mJoin">Rejoindre</button></div>
       <button class="btn w" id="mSolo">🤖 Solo contre les bots</button>`;
   } else {
     h += `<label class="muted" for="pseudo" style="font-size:13px">Ton pseudo</label>
@@ -789,8 +833,8 @@ function renderMenu() {
   if (canResume) h += `<button class="btn g" id="mResume">▶️ Reprendre la partie (manche ${saved.s.round}/${saved.s.rounds})</button>`;
   $('#menuBox').innerHTML = h;
   const on = (id, fn) => { const el = document.getElementById(id); if (el) el.onclick = fn; };
-  on('mCreate', () => { const L = 'ABCDEFGHJKLMNPQRSTUVWXYZ'; let c = ''; for (let i = 0; i < 4; i++) c += L[Math.floor(Math.random() * L.length)]; joinRoom(c, true); });
-  on('mJoin', () => { const c = ($('#code').value || '').toUpperCase().replace(/[^A-Z0-9]/g, ''); if (c.length < 4) return toast('Le code fait au moins 4 lettres ou chiffres.'); joinRoom(c, false); });
+  on('mCreate', () => { let c = ''; for (let i = 0; i < 4; i++) c += Math.floor(Math.random() * 10); joinRoom(c, true); });
+  on('mJoin', () => { const c = ($('#code').value || '').toUpperCase().replace(/[^A-Z0-9]/g, ''); if (c.length < 4) return toast('Entre le code à 4 chiffres de la partie.'); joinRoom(c, false); });
   const ci = $('#code'); if (ci) ci.onkeydown = e => { if (e.key === 'Enter') $('#mJoin').click(); };
   on('mSolo', () => openSetup(1));
   on('mLocal', () => openSetup(2));
@@ -942,32 +986,39 @@ function renderGame() {
   $('#board').innerHTML = CASES.map(cs => {
     const r = rk(cs.c), s = su(cs.c), pot = S.pots[cs.k];
     const stack = '<div class="stack">' + '<i></i>'.repeat(Math.min(8, Math.ceil(pot / 6))) + '</div>';
-    return `<div class="case ${cs.k === 'nain' ? 'nain' : ''}" data-k="${cs.k}" title="${cs.nom}">
+    const hot = S.phase === 'play' && S.need === r;
+    return `<div class="case ${cs.k === 'nain' ? 'nain' : ''} ${hot ? 'hot' : ''}" data-k="${cs.k}" title="${cs.nom}">
       ${cs.k === 'nain' ? DWARF : stack}
       <span class="mini ${RED[s] ? 'red' : ''}">${RN(r)}${SUIT[s]}</span>
       <span class="lbl">${cs.k === 'nain' ? 'Nain jaune' : cs.nom.split(' ')[0]}</span>
       <span class="pot"><i class="coin-i"></i>${pot}</span></div>`;
   }).join('');
+  document.querySelectorAll('#board .case').forEach(el => el.onclick = () => {
+    const cs = CASE_K[el.dataset.k], pot = S.pots[cs.k];
+    toast(`${cs.nom} : celui qui pose cette carte rafle les ${pot} jeton${pot > 1 ? 's' : ''} de la case.`);
+  });
   // tapis
-  const seq = S.seq.slice(-6);
-  let needH = '';
-  if (S.phase === 'play') needH = S.need ? `<div class="need">Il faut ${UN(S.need).replace(/(\S+)$/, '<b>$1</b>')}</div>` : `<div class="need free">Carte <b>libre</b> : nouvelle suite</div>`;
-  $('#tapis').innerHTML = `${needH}<div class="seq">${seq.length ? seq.map((c, k) => cardHTML(c, k === seq.length - 1 ? 'last' : '')).join('') : '<div class="empty">La suite commence ici.<br>On monte de 1 en 1, sans regarder la couleur.</div>'}</div>
-    ${S.talon ? `<span class="talon">${S.talon} cartes dorment au talon</span>` : ''}`;
+  const seq = S.seq.slice(-5);
+  let needH = '', ghost = '';
+  if (S.phase === 'play') {
+    needH = S.need ? `<div class="need">Prochaine carte : <b>${RL(S.need)}</b> <span>(n'importe quelle couleur)</span></div>` : `<div class="need free"><b>Carte au choix</b> : on lance une nouvelle suite</div>`;
+    ghost = S.need ? `<div class="card ghost"><b>${RN(S.need)}</b><small>suivante</small></div>` : `<div class="card ghost free"><b>?</b><small>au choix</small></div>`;
+  }
+  $('#tapis').innerHTML = `${needH}<div class="seq">${seq.map((c, k) => cardHTML(c, k === seq.length - 1 ? 'last' : '')).join('')}${ghost}</div>
+    ${S.talon ? `<span class="talon">${S.talon} cartes cachées au talon</span>` : ''}`;
   const last = $('#tapis .card.last'); if (last) last.style.setProperty('--rot', ((S.seq[S.seq.length - 1] * 37) % 15 - 7) + 'deg');
-  // statut
+  // statut : ce qui vient de se passer + ce qu'il faut faire
   let st = '', stMe = false;
   if (S.phase === 'play') {
     const t = S.players[S.turn];
     if (S.turn === mi && !veiled) {
-      const pl = playableOf(S, mi);
-      stMe = pl.length > 0;
-      st = pl.length ? (S.need ? `À toi ! Pose ${UN(S.need)}` : 'À toi ! Commence une suite avec la carte de ton choix') : `Tu n'as pas de ${RL(S.need)}…`;
-    } else if (!present(t)) st = `${t.name} est parti. Un bot joue à sa place dans quelques secondes…`;
-    else st = playableOf(S, S.turn).length ? `${t.name} réfléchit…` : `${t.name} n'a pas de ${RL(S.need)}…`;
+      stMe = true;
+      st = S.need ? `À toi ! Pose ${UN(S.need)} : touche une carte qui brille` : `À toi ! Pose la carte de ton choix pour lancer une suite`;
+    } else if (!present(t)) st = `${t.name} est parti : un bot joue à sa place dans quelques secondes…`;
+    else st = S.need ? `Au tour de ${t.name} : il lui faut ${UN(S.need)}` : `Au tour de ${t.name} : il choisit une carte pour lancer une suite`;
   } else if (S.phase === 'roundEnd') st = 'Fin de la manche';
   else if (S.phase === 'over') st = 'Partie terminée';
-  $('#status').innerHTML = `<span class="${stMe ? 'me' : ''}">${esc(st)}</span>`;
+  $('#status').innerHTML = `<div class="say">${esc(narrText(S))}</div><span class="${stMe ? 'me' : ''}">${esc(st)}</span>`;
   // moi
   const mp = S.players[mi];
   if (mp) {
@@ -986,7 +1037,14 @@ function renderGame() {
     const my = S.phase === 'play' && S.turn === mi;
     const ok = my ? new Set(playableOf(S, mi)) : new Set();
     hand.className = 'hand' + (my && ok.size ? ' myturn' : '');
-    hand.innerHTML = h.length ? h.map(c => cardHTML(c, ok.has(c) ? 'ok' : '')).join('') : '<div class="msg">Plus de cartes !</div>';
+    const help = LS.get('help', true);
+    const tipC = (help && my && !S.need && ok.size > 1) ? botPick(S, mi) : -1;
+    hand.innerHTML = h.length ? h.map(c => cardHTML(c, (ok.has(c) ? 'ok' : '') + (c === tipC ? ' tip' : ''))).join('') : '<div class="msg">Plus de cartes !</div>';
+    hand.querySelectorAll('.card').forEach(el => {
+      const c = +el.dataset.c, cs = CASE_OF[c];
+      if (cs) el.insertAdjacentHTML('beforeend', `<span class="gain">+${S.pots[cs.k]}</span>`);
+      if (c === tipC) { el.insertAdjacentHTML('beforeend', '<span class="tipb">💡</span>'); el.title = 'Conseil : avec cette carte tu peux enchaîner le plus de cartes'; }
+    });
     hand.querySelectorAll('.card.ok').forEach(el => el.onclick = () => { const c = +el.dataset.c; captureOrigin(c); SND.pop(); act({ a: 'play', c }); });
   }
   layoutHand();
@@ -994,6 +1052,105 @@ function renderGame() {
   renderLog();
   renderPhaseModal();
 }
+function narrText(S) {
+  const ev = S.ev, mi = myIdx(); let k = ev.length - 1; if (k < 0) return '';
+  const nm = i => i === mi ? 'toi' : pn(S, i);
+  let block = null, king = false, passes = [], play = null;
+  if (ev[k].k === 'win' || ev[k].k === 'opera' || ev[k].k === 'over') return '';
+  if (ev[k].k === 'block') { block = ev[k]; k--; }
+  while (k >= 0 && ev[k].k === 'pass') { passes.unshift(ev[k]); k--; }
+  if (k >= 0 && ev[k].k === 'king') { king = true; k--; }
+  if (k >= 0 && ev[k].k === 'play') play = ev[k];
+  else if (k >= 0 && ev[k].k === 'round' && !passes.length && !block) return '🎴 Nouvelle manche : chacun a misé 15 jetons sur le plateau.';
+  const out = [];
+  let ids = [...new Set(passes.map(e => e.p))];
+  const need = passes.length ? RL(passes[0].need) : '';
+  if (play) {
+    const meP = play.p === mi;
+    let t = meP ? `Tu poses ${cname(play.c)}` : `${pn(S, play.p)} pose ${cname(play.c)}`;
+    if (play.cs) t += play.amt ? ` et rafle ${play.amt} jetons 💰` : ' (sa case était vide)';
+    if (ids[0] === play.p) { t += meP ? ` mais tu n'as pas de ${need}` : ` mais n'a pas de ${need}`; ids = ids.slice(1); }
+    out.push(t);
+  }
+  if (king) out.push('👑 le Roi ferme la suite');
+  if (ids.length) {
+    const names = ids.map(nm);
+    const list = names.length > 1 ? names.slice(0, -1).join(', ') + ' et ' + names[names.length - 1] : names[0];
+    const verb = ids.length > 1 ? (ids.includes(mi) ? "n'avez" : "n'ont") : (ids[0] === mi ? "n'as" : "n'a");
+    out.push(`${ids.length === 1 && ids[0] === mi ? 'tu' : list} ${verb} pas de ${need}${play && passes[0].p === play.p ? ' non plus' : ''}`);
+  }
+  if (block) out.push(`personne ne l'a, ${block.p === mi ? 'tu repars' : nm(block.p) + ' repart'} avec la carte de son choix`);
+  const t = out.join(' · ');
+  return t.charAt(0).toUpperCase() + t.slice(1);
+}
+
+/* ---------------- CONSEILS (première partie) ---------------- */
+const TIPS = {
+  free: ['Carte au choix', "C'est à toi de lancer une suite : pose n'importe quelle carte. Ensuite, tant que tu as la carte juste au-dessus (par exemple 4 puis 5 puis 6), tu continues. Le 💡 montre la carte qui te permet d'enchaîner le plus."],
+  forced: ['Continue la suite', "Regarde le tapis : la carte en pointillés est celle qu'il faut poser, peu importe la couleur. Tes cartes qui brillent en jaune conviennent : touche-en une."],
+  pass: ["Tu n'as pas la carte", "Pas grave : ton tour passe tout seul au joueur suivant, qui doit poser cette carte à ta place."],
+  block: ['Bloqué !', "Personne n'avait la carte demandée (elle est peut-être cachée au talon). Le dernier à avoir posé une carte recommence avec la carte de son choix."],
+  king: ['Le Roi ferme la suite', "Le Roi est la carte la plus haute : impossible d'aller plus loin. Celui qui l'a posé recommence avec la carte de son choix."],
+  pot: ['Jackpot ! 💰', "Les cartes ★ (10♦, V♣, D♠, R♥ et le 7♦, le Nain jaune) correspondent aux cases du plateau. Celui qui en pose une rafle tous les jetons de sa case."],
+  star: ['Tu as une carte ★', "Le badge jaune indique combien de jetons elle rapporte. Essaie de la poser pendant la manche : si elle te reste en main à la fin, tu paies une pénalité."]
+};
+let coachQ = [], coachOn = false;
+function coach(k) {
+  if (!LS.get('help', true) || !TIPS[k]) return;
+  const seen = LS.get('seen', {}); if (seen[k] || coachQ.includes(k)) return;
+  coachQ.push(k);
+  if (!coachOn) { coachOn = true; if (mode !== 'online') clearTimeout(hostTimer); setTimeout(nextCoach, 900); }
+}
+function nextCoach() {
+  const el = $('#coach'), k = coachQ.shift();
+  if (!k) { coachOn = false; el.classList.remove('on'); hostTick(); return; }
+  const seen = LS.get('seen', {}); seen[k] = 1; LS.set('seen', seen);
+  el.innerHTML = `${DWARF}<div style="flex:1"><b>${TIPS[k][0]}</b><p>${TIPS[k][1]}</p><div class="row"><button class="btn w sm" id="coachOff">Plus de conseils</button><button class="btn sm" id="coachOk">Compris !</button></div></div>`;
+  el.classList.add('on'); SND.pop();
+  $('#coachOk').onclick = nextCoach;
+  $('#coachOff').onclick = () => { LS.set('help', false); coachQ = []; nextCoach(); render(); };
+}
+function checkCoach(newEv) {
+  if (!S || veiled) return;
+  const mi = myIdx(); if (mi < 0) return;
+  newEv.forEach(e => {
+    if (e.k === 'pass' && e.p === mi) coach('pass');
+    if (e.k === 'block') coach('block');
+    if (e.k === 'king') coach('king');
+    if (e.k === 'play' && e.cs) coach('pot');
+    if (e.k === 'round' && (S.hands[mi] || []).some(c => CASE_OF[c])) coach('star');
+  });
+  if (S.phase === 'play' && S.turn === mi) coach(S.need ? 'forced' : 'free');
+}
+
+/* ---------------- TUTORIEL ---------------- */
+function tutoSlides() {
+  const g = (r, t) => `<div class="card ghost"><b>${r}</b><small>${t}</small></div>`;
+  return [
+    ['Le but du jeu', "Sois le premier à <b>vider ta main</b>. En chemin, rafle un maximum de jetons. À la fin de la partie, celui qui a le plus de jetons gagne.",
+      `${cardHTML(3)}${cardHTML(17)}${cardHTML(44)}<span class="arrow">→</span><span class="chip">0 carte = 🏆</span>`],
+    ['On pose en montant', "Les cartes se posent <b>dans l'ordre</b> : 5, puis 6, puis 7… La <b>couleur ne compte pas</b>. Tant que tu as la carte suivante, tu continues à jouer.",
+      `${cardHTML(4)}${cardHTML(18)}${cardHTML(45)}${g(8, 'la suivante')}`],
+    ['Si tu ne l\'as pas', "Pas de 8 ? Ton tour passe automatiquement au joueur suivant, qui doit le poser. Si <b>personne</b> ne l'a, ou après un <b>Roi</b>, le dernier à avoir joué repart avec <b>la carte de son choix</b>.",
+      `${cardHTML(45)}${g(8, '?')}<span class="chip">Gérard ✗</span><span class="chip">Josiane ✗</span><span class="arrow">→</span>${g('?', 'au choix')}`],
+    ['Les cartes ★ du plateau', "Le plateau a 5 cases, chacune liée à une carte. Chaque manche, tout le monde y mise des jetons. <b>Pose une de ces cartes et tu rafles sa case !</b> La plus grosse : le 7♦, le Nain jaune.",
+      `${cardHTML(35)}${cardHTML(49)}${cardHTML(32)}${cardHTML(11)}${cardHTML(25)}`],
+    ['Fin de la manche', "Le premier qui n'a plus de cartes gagne la manche. Les autres lui paient la valeur des cartes qu'il leur reste (as = 1, figures = 10). Garder une carte ★ en main coûte une pénalité.",
+      `${cardHTML(2)}${cardHTML(19)}${cardHTML(11)}<span class="arrow">=</span><span class="chip">3 + 7 + 10 = 20 jetons à payer</span>`]
+  ];
+}
+function openTuto(i = 0) {
+  const sl = tutoSlides(), [t, d, ill] = sl[i], last = i === sl.length - 1;
+  openModal(`<h2>${t}</h2><div class="tuto-ill">${ill}</div><p>${d}</p>
+    <div class="dots">${sl.map((_, k) => `<i class="${k === i ? 'on' : ''}"></i>`).join('')}</div>
+    <div class="mbtns">${i ? '<button class="btn w" id="tPrev">← Retour</button>' : '<button class="btn w" id="tSkip">Passer</button>'}
+    <button class="btn ${last ? 'g' : ''}" id="tNext">${last ? "C'est compris !" : 'Suivant →'}</button></div>`, 'tuto');
+  const done = () => { LS.set('tuto', 1); closeModal(); };
+  const on = (id, f) => { const el = document.getElementById(id); if (el) el.onclick = f; };
+  on('tPrev', () => openTuto(i - 1)); on('tSkip', done);
+  on('tNext', () => last ? done() : openTuto(i + 1));
+}
+
 function layoutHand() {
   const hand = $('#hand'); if (!hand) return;
   const cards = [...hand.querySelectorAll('.card')]; if (!cards.length) return;
@@ -1010,7 +1167,7 @@ function renderVeil() {
       <p style="margin:0;font-weight:800">Passe l'appareil à ${esc(p.name)}. Les autres, on ne regarde pas 🙈</p>
       <button class="btn" id="veilGo" style="font-size:20px">C'est moi, ${esc(p.name)} : voir ma main</button>`;
     v.classList.add('on');
-    $('#veilGo').onclick = () => { veiled = false; v.classList.remove('on'); LS.set('local', { mode, s: S, view: viewIdx }); render(); SND.turn(); autoForced(); };
+    $('#veilGo').onclick = () => { veiled = false; v.classList.remove('on'); LS.set('local', { mode, s: S, view: viewIdx }); render(); SND.turn(); autoForced(); checkCoach([]); };
   } else v.classList.remove('on');
 }
 function renderLog() { $('#logList').innerHTML = S.log.slice().reverse().map(t => `<li>${esc(t)}</li>`).join(''); }
@@ -1033,8 +1190,8 @@ function resultTable() {
   let h = `<table class="rtab"><tr><td><div class="who">${avatarHTML(w)}<b>${esc(w.name)}</b></div></td><td class="n" style="color:#17a85c">+${r.gain + r.og} 🪙</td></tr>`;
   r.rows.forEach(x => {
     const p = S.players[x.p];
-    h += `<tr><td><div class="who">${avatarHTML(p)}<div><b>${esc(p.name)}</b><div class="minis">${x.cards.map(c => `<span class="${RED[su(c)] ? 'r' : ''}">${cname(c)}</span>`).join('') || '<span>aucune</span>'}</div></div></div></td>
-      <td class="n" style="color:var(--rouge)">−${x.pay}${x.pen ? `<br><small>−${x.pen} pénalité</small>` : ''}</td></tr>`;
+    h += `<tr><td><div class="who">${avatarHTML(p)}<div><b>${esc(p.name)}</b> <small>${x.cards.length} carte${x.cards.length > 1 ? 's' : ''} restante${x.cards.length > 1 ? 's' : ''} = ${x.cards.reduce((a, c) => a + cval(c), 0)} pts</small><div class="minis">${x.cards.map(c => `<span class="${RED[su(c)] ? 'r' : ''}">${cname(c)}</span>`).join('') || '<span>aucune</span>'}</div></div></div></td>
+      <td class="n" style="color:var(--rouge)">−${x.pay}${x.pen ? `<br><small>−${x.pen} pénalité ★</small>` : ''}</td></tr>`;
   });
   return h + '</table>';
 }
@@ -1058,7 +1215,7 @@ function openPhaseModal() {
       ${rank.length > 3 ? `<p style="font-size:14px">${rank.slice(3).map((x, k) => `${k + 4}. ${esc(x.p.name)} (${x.p.tokens})`).join(' · ')}</p>` : ''}
       <div class="mbtns" id="mb"></div>`;
   } else return;
-  openModal(h);
+  openModal(h, 'phase');
   updateModalButtons();
 }
 function rankingHTML() {
@@ -1090,8 +1247,9 @@ function showReopen() {
   $('#status').innerHTML = `<button class="btn sm" id="reopen">Voir les résultats de la manche</button>`;
   $('#reopen').onclick = () => openPhaseModal();
 }
-function openModal(h) { $('#modalBody').innerHTML = h; $('#modal').classList.add('on'); }
-function closeModal() { $('#modal').classList.remove('on'); }
+let modalKind = '';
+function openModal(h, kind = 'info') { modalKind = kind; $('#modalBody').innerHTML = h; $('#modal').classList.add('on'); }
+function closeModal() { $('#modal').classList.remove('on'); modalKind = ''; }
 $('#modal').addEventListener('click', e => { if (e.target.id === 'modal' && !(S && (S.phase === 'roundEnd' || S.phase === 'over') && $('#mb'))) closeModal(); });
 
 /* ---------------- ANIMATIONS D'ÉVÉNEMENTS ---------------- */
@@ -1112,7 +1270,8 @@ function bubble(p, txt) {
 function runEvents(list, origins, prev) {
   if (!list.length) return;
   const many = list.filter(e => e.k === 'play').length > 2;
-  list.forEach((e, k) => setTimeout(() => runEvent(e, origins[e.n], many), many ? k * 60 : k * 140));
+  let t = 0;
+  list.forEach(e => { setTimeout(() => runEvent(e, origins[e.n], many), t); t += many ? 60 : (e.k === 'pass' ? 420 : e.k === 'play' ? 300 : 160); });
 }
 function runEvent(e, origin, quick) {
   const P = S.players[e.p];
@@ -1131,7 +1290,7 @@ function runEvent(e, origin, quick) {
       } else { SND.card(); afterLand(e, P); }
       break;
     }
-    case 'pass': bubble(e.p, `Pas de ${RN(e.need)} !`); SND.pass(); break;
+    case 'pass': bubble(e.p, `Pas de ${RL(e.need)} !`); SND.pass(); break;
     case 'block': stamp(`Bloqué !<small>Personne n'a de ${esc(RL(e.need))}</small>`); SND.block(); setTimeout(() => bubble(e.p, 'Je repars !'), 700); break;
     case 'king': setTimeout(() => { bubble(e.p, '👑 Le roi ferme la suite !'); SND.king(); }, 450); break;
     case 'round': roundFx(); break;
@@ -1249,11 +1408,14 @@ function rulesHTML() {
 function settingsHTML() {
   return `<h2>☰ Menu</h2>
     <label class="toggle">Son<input type="checkbox" id="tSnd" ${SND.on ? 'checked' : ''}></label>
-    <label class="toggle">Jouer automatiquement les coups forcés<input type="checkbox" id="tAuto" ${LS.get('auto', false) ? 'checked' : ''}></label>
-    <div class="mbtns"><button class="btn w" id="sRules">📜 Règles</button><button class="btn p" id="sQuit">${mode === 'online' ? 'Quitter la salle' : 'Quitter (sauvegardé)'}</button></div>
+    <label class="toggle">Conseils et carte suggérée 💡<input type="checkbox" id="tHelp" ${LS.get('help', true) ? 'checked' : ''}></label>
+    <label class="toggle">Jouer automatiquement quand je n'ai qu'un seul choix<input type="checkbox" id="tAuto" ${LS.get('auto', false) ? 'checked' : ''}></label>
+    <div class="mbtns"><button class="btn w" id="sTuto">❓ Comment jouer</button><button class="btn w" id="sRules">📜 Règles</button></div>
+    <div class="mbtns"><button class="btn p" id="sQuit">${mode === 'online' ? 'Quitter la salle' : 'Quitter (sauvegardé)'}</button></div>
     <div class="mbtns"><button class="btn" onclick="closeModal()">Reprendre</button></div>`;
 }
 $('#btnRules').onclick = () => openModal(rulesHTML());
+$('#btnTuto').onclick = () => openTuto(0);
 $('#btnSnd1').onclick = $('#btnSnd2').onclick = () => setSnd(!SND.on);
 $('#btnLog').onclick = () => $('#log').classList.toggle('on');
 $('#logClose').onclick = () => $('#log').classList.remove('on');
@@ -1262,6 +1424,8 @@ $('#btnMenu').onclick = () => {
   $('#tSnd').onchange = e => setSnd(e.target.checked);
   $('#tAuto').onchange = e => { LS.set('auto', e.target.checked); autoForced(); };
   $('#sRules').onclick = () => openModal(rulesHTML());
+  $('#sTuto').onclick = () => openTuto(0);
+  $('#tHelp').onchange = e => { LS.set('help', e.target.checked); if (e.target.checked) LS.set('seen', {}); render(); };
   $('#sQuit').onclick = () => { closeModal(); quitGame(); };
 };
 setSnd(SND.on);
@@ -1271,9 +1435,10 @@ setSnd(SND.on);
   if (SDK) {
     try { const m = await SDK.me(); if (m) { me.name = m.name || me.name; me.avatar = m.avatar || null; me.id = m.id; } } catch (e) {}
     const inv = SDK.room ? SDK.room() : null;
-    if (inv) { joinRoom(String(inv).toUpperCase(), true); return; }
+    if (inv) { joinRoom(String(inv).toUpperCase(), true); if (!LS.get('tuto', 0)) setTimeout(() => openTuto(0), 400); return; }
   }
   render();
+  if (!LS.get('tuto', 0)) setTimeout(() => openTuto(0), 400);
 })();
 </script>
 </body>
